@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
     
     # filter ratings
     @all_ratings = Movie.all_ratings
-    @selected_ratings = params[:ratings] || session[:ratings]? params[:ratings] || session[:ratings] : @all_ratings.inject({}) {|rating,key| rating[key]="1"}
+    @selected_ratings = params[:ratings] || session[:ratings]? params[:ratings] || session[:ratings] : @all_ratings.inject({}) {|rating,key| rating[key]="1" ; rating}
     
     # sort column and direction
     @sort_column = params[:sort] || session[:sort] ? params[:sort] || session[:sort]: "title"
@@ -36,7 +36,7 @@ class MoviesController < ApplicationController
     else
       #If you find that the incoming URI is lacking the right params[] and you're forced to fill them in from the session[], 
       #the RESTful thing to do is to redirect_to the new URI containing the appropriate parameters. 
-      redirect_to movies_path(:sort => @sort_column, :direction => @sort_direction, :ratings => @selected_ratings), { :id => "#{@sort_column}_header"}
+      redirect_to movies_path(:sort => @sort_column, :direction => @sort_direction, :ratings => @selected_ratings)
     end  
   end
 
